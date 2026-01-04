@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Dextra | Hand Rehabilitation System</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       margin: 0;
@@ -12,30 +13,53 @@
       color: #222;
       line-height: 1.6;
     }
+
     header {
       background: #0f172a;
       color: white;
       padding: 60px 20px;
       text-align: center;
     }
+
+    header h1 {
+      margin-bottom: 10px;
+      font-size: 42px;
+    }
+
     section {
       max-width: 900px;
       margin: auto;
       padding: 40px 20px;
     }
+
     h2 {
       color: #0f172a;
+      margin-bottom: 10px;
     }
+
     .card {
       background: white;
-      padding: 20px;
-      border-radius: 10px;
+      padding: 25px;
+      border-radius: 12px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
-    .qr {
-      text-align: center;
+
+    .download-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 14px 28px;
+      background: #0f172a;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
     }
+
+    .download-btn:hover {
+      background: #020617;
+    }
+
     footer {
       background: #0f172a;
       color: white;
@@ -45,6 +69,7 @@
     }
   </style>
 </head>
+
 <body>
 
 <header>
@@ -53,12 +78,14 @@
 </header>
 
 <section>
+
   <div class="card">
     <h2>About the Product</h2>
     <p>
       Dextra is a low-cost hand rehabilitation system designed to assist patients
-      in finger and wrist recovery. The device uses controlled movements and a
-      mobile application to support therapy sessions at home.
+      recovering from stroke or hand injuries. The device enables controlled
+      finger and wrist movements using a mobile application and smart actuators,
+      making rehabilitation accessible and portable.
     </p>
   </div>
 
@@ -66,17 +93,28 @@
     <h2>Technical Limitations</h2>
     <ul>
       <li>Limited to predefined motion ranges</li>
-      <li>Bluetooth-dependent mobile control</li>
-      <li>Requires supervision during use</li>
-      <li>Not a replacement for professional therapy</li>
+      <li>Requires Bluetooth connection with the mobile app</li>
+      <li>Not intended to replace professional physiotherapy</li>
+      <li>Designed for supervised or assisted use</li>
     </ul>
   </div>
 
-  <div class="card qr">
+  <div class="card">
     <h2>Download the Mobile App</h2>
-    <p>Scan the QR code to download the Dextra app</p>
-    <img src="qr.png" alt="App Download QR" width="180">
+    <p>
+      Click the button below to download the Dextra Android application.
+    </p>
+
+    <a class="download-btn" href="Dextra%20(7).apk" download>
+      Download APK
+    </a>
+
+    <p style="margin-top:15px;font-size:14px;">
+      After downloading, enable <b>Install from Unknown Sources</b> in your
+      Android settings.
+    </p>
   </div>
+
 </section>
 
 <footer>
