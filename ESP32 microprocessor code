@@ -1,0 +1,99 @@
+#include <ESP32Servo.h>
+
+Servo servo1;  // Servo 1 (0–60°)
+Servo servo2;  // Servo 2 (0–180°)
+
+// Pin definitions
+const int moveSwitch1  = 4;   // Move servo1
+const int resetSwitch1 = 5;   // Reset servo1
+const int moveSwitch2  = 15;  // Move servo2
+const int resetSwitch2 = 16;  // Reset servo2
+
+const int servo1Pin = 18;
+const int servo2Pin = 19;
+
+// State variables
+int currentPos1 = 0;
+int currentPos2 = 0;
+
+bool movementDone1 = false;
+bool movementDone2 = false;
+
+bool resetDone1 = false;
+bool resetDone2 = false;
+
+void setup() {
+  Serial.begin(115200);
+
+  // Setup pins
+  pinMode(moveSwitch1, INPUT);
+  pinMode(resetSwitch1, INPUT);
+  pinMode(moveSwitch2, INPUT);
+  pinMode(resetSwitch2, INPUT);
+
+  // Attach servos
+  servo1.attach(servo1Pin, 500, 2400);
+  servo2.attach(servo2Pin, 500, 2400);
+
+  // Start at 0
+  servo1.write(0);
+  servo2.write(0);
+}
+
+void loop() {
+  // Read switch states
+  bool move1  = digitalRead(moveSwitch1);
+  bool reset1 = digitalRead(resetSwitch1);
+  bool move2  = digitalRead(moveSwitch2);
+  bool reset2 = digitalRead(resetSwitch2);
+
+  // ===================== SERVO 1 LOGIC =====================
+  if (reset1 == HIGH) {
+    if (!resetDone1) {
+      servo1.write(0);
+      currentPos1 = 0;
+      movementDone1 = false;
+      resetDone1 = true;
+      Serial.println("Servo 1 reset to 0°");
+    }
+  } else if (move1 == HIGH) {
+    resetDone1 = false;
+    if (!movementDone1 && currentPos1 < 60) {
+      currentPos1++;
+      servo1.write(currentPos1);
+      delay(15);
+    } else {
+      movementDone1 = true;  // Hold at 60°
+    }
+  } else {
+    // Hold current position
+    resetDone1 = false;
+  }
+
+  // ===================== SERVO 2 LOGIC =====================
+  if (reset2 == HIGH) {
+    if (!resetDone2) {
+      servo2.write(0);
+      currentPos2 = 0;
+      movementDone2 = false;
+      resetDone2 = true;
+      Serial.println("Servo 2 reset to 0°");
+    }
+  } else if (move2 == HIGH) {
+    resetDone2 = false;
+    // Allow servo to continue from last position until 180°
+    if (currentPos2 < 180) {
+      currentPos2++;
+      servo2.write(currentPos2);
+      delay(15);
+      movementDone2 = false;  // ensure it can move again next time
+    } else {
+      movementDone2 = true;   // stop only at full range
+    }
+  } else {
+    // Hold current position, but do not reset movement state
+    resetDone2 = false;
+  }
+
+  delay(10);  // Small delay for stability
+}
